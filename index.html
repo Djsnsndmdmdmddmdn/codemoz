@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-mz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeMoz — Escola de Programação Web em Maputo</title>
+<meta name="description" content="CodeMoz: academia de programação web em Maputo. Aprende HTML, CSS e desenvolvimento de sites com projectos reais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CodeMoz — folha de estilos principal
+   Paleta: azul-noite profundo + marigold + coral (inspirado
+   nas cores vivas das capulanas moçambicanas, com um "terminal"
+   de código como assinatura visual do módulo de Web Design)
+   ========================================================= */
+
+:root {
+  --ink: #0F1B2D;
+  --panel: #16263D;
+  --panel-2: #1E304A;
+  --line: #28405F;
+  --mist: #E8EDF4;
+  --muted: #92A5C4;
+  --sun: #F5A623;
+  --coral: #FF6B5B;
+  --leaf: #6FCF97;
+
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 10px;
+  --max-width: 1140px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--mist);
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+
+img, svg.inline-img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  margin: 0 0 .5em;
+}
+
+a { color: var(--sun); text-decoration: none; transition: color 0.2s ease; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* -------- 1. SCROLL-DRIVEN ANIMATIONS -------- */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--sun), var(--coral));
+  transform-origin: left;
+  z-index: 100;
+  animation: scroll-progress linear;
+  animation-timeline: scroll(root);
+}
+
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* -------- eyebrow "code tag" — elemento de assinatura -------- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--coral);
+  background: rgba(255,107,91,.08);
+  border: 1px solid rgba(255,107,91,.35);
+  padding: .2em .7em;
+  border-radius: 6px;
+  margin-bottom: .9em;
+  letter-spacing: .02em;
+}
+
+/* ================= HEADER / NAV ================= */
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(15,27,45,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-bar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--mist);
+}
+.brand img, .brand svg.inline-img { width: 34px; height: 34px; }
+.brand span.dim { color: var(--muted); font-weight: 400; }
+
+/* checkbox hack para o menu responsivo com seletor :has() */
+#menu-toggle { display: none; }
+
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+}
+.menu-icon span {
+  width: 24px;
+  height: 2px;
+  background: var(--mist);
+  border-radius: 2px;
+}
+
+nav ul.nav-links {
+  display: flex;
+  gap: 6px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul.nav-links li a {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: color .15s ease, background .15s ease;
+}
+nav ul.nav-links li a:hover,
+nav ul.nav-links li a.active {
+  color: var(--sun);
+  background: var(--panel-2);
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .menu-icon { display: flex; }
+  nav ul.nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 24px 18px;
+    display: none;
+  }
+  nav ul.nav-links li a { display: block; padding: 12px 8px; }
+  header.site-header:has(#menu-toggle:checked) nav ul.nav-links { display: flex; }
+}
+
+/* ================= HERO & CSS 3D ================= */
+.hero {
+  padding: 70px 0 50px;
+  perspective: 1000px; /* Ativa a perspectiva 3D */
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 2.9rem);
+}
+.hero h1 .accent { color: var(--sun); }
+.hero p.lead {
+  color: var(--muted);
+  font-size: 1.08rem;
+  max-width: 46ch;
+}
+
+/* Efeito 3D na Ilustração do Hero */
+.hero-illustration {
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-out;
+}
+.hero-illustration:hover {
+  transform: rotateY(-6deg) rotateX(4deg) translateZ(10px);
+}
+
+@media (max-width: 860px) {
+  .hero .container { grid-template-columns: 1fr; }
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-primary { background: var(--sun); color: var(--ink); }
+.btn-primary:hover { background: #ffb540; text-decoration: none; }
+.btn-ghost { background: transparent; color: var(--mist); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--sun); color: var(--sun); text-decoration: none; }
+.cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+
+/* ================= SECTIONS & CONTAINER QUERIES ================= */
+section { padding: 60px 0; }
+section.alt { background: var(--panel); }
+.section-head { max-width: 60ch; margin-bottom: 36px; }
+.section-head p { color: var(--muted); }
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (max-width: 860px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* -------- 2. CONTAINER QUERIES NOS CARTÕES DE MÓDULO -------- */
+.card-container {
+  container-type: inline-size;
+  container-name: module-card;
+}
+
+.card {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* -------- 3. PSEUDO-CLASSE :has() NOS CARTÕES -------- */
+.card:has(input[type="checkbox"]:checked) {
+  border-color: var(--sun);
+  background: var(--panel);
+  box-shadow: 0 0 20px rgba(245, 166, 35, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--sun);
+}
+
+.card h3 { color: var(--mist); margin: 0; }
+.card .num {
+  font-family: var(--font-mono);
+  color: var(--coral);
+  font-size: .85rem;
+  display: block;
+}
+
+/* Adaptabilidade do layout interno do cartão via Container Query */
+@container module-card (min-width: 320px) {
+  .card-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+}
+
+.module-select {
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+ul.check, ol.steps {
+  padding-left: 1.2em;
+  color: var(--muted);
+}
+ul.check { list-style: none; padding-left: 0; }
+ul.check li {
+  position: relative;
+  padding-left: 1.7em;
+  margin-bottom: .5em;
+}
+ul.check li::before {
+  content: "▹";
+  color: var(--leaf);
+  position: absolute;
+  left: 0;
+}
+ol.steps li { margin-bottom: .6em; }
+ol.steps li::marker {
+  font-family: var(--font-mono);
+  color: var(--sun);
+}
+
+/* media wrappers (vídeo responsivo) */
+.media-frame {
+  position: relative;
+  padding-bottom: 56.25%; /* Proporção 16:9 */
+  height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #000;
+}
+.media-frame iframe, .media-frame video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* -------- 4. ELEMENTO <dialog> NATIVO -------- */
+dialog#syllabi-dialog {
+  margin: auto;
+  padding: 30px;
+  background: var(--panel-2);
+  border: 1px solid var(--sun);
+  border-radius: var(--radius);
+  color: var(--mist);
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+dialog::backdrop {
+  background: rgba(15, 27, 45, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+dialog .dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* footer */
+footer.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 40px 0 26px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+footer.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+footer.site-footer a { color: var(--muted); }
+footer.site-footer a:hover { color: var(--sun); }
+
+.socials { display: flex; gap: 14px; list-style: none; padding: 0; margin: 0; }
+
+/* utility */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.small { font-size: .85rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card, .btn, .hero-illustration { transition: none; transform: none; }
+  .scroll-progress-bar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1. BARRA DE PROGRESSO ANIMADA PELO SCROLL -->
+<div class="scroll-progress-bar"></div>
+
+<header class="site-header">
+  <div class="nav-bar">
+    <a class="brand" href="index.html">
+      <svg class="inline-img" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><title>Logótipo CodeMoz</title>
+        <rect width="64" height="64" rx="14" fill="#16263D"/>
+        <path d="M24 20 L12 32 L24 44" stroke="#F5A623" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40 20 L52 32 L40 44" stroke="#FF6B5B" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="35" y1="16" x2="29" y2="48" stroke="#E8EDF4" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      CodeMoz <span class="dim">.mz</span>
+    </a>
+    <input type="checkbox" id="menu-toggle">
+    <label class="menu-icon" for="menu-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">&lt;início&gt;</a></li>
+        <li><a href="sobre.html">&lt;sobre&gt;</a></li>
+        <li><a href="servicos.html">&lt;serviços&gt;</a></li>
+        <li><a href="portfolio.html">&lt;portfólio&gt;</a></li>
+        <li><a href="contacto.html">&lt;contacto&gt;</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <span class="tag">&lt;bem-vindo/&gt;</span>
+        <h1>Aprende a construir a <span class="accent">web</span> que Moçambique ainda vai usar.</h1>
+        <p class="lead">A CodeMoz é uma academia em Maputo dedicada ao ensino prático de HTML, CSS e programação de aplicações web — dos primeiros marcadores &lt;div&gt; até ao lançamento do teu primeiro site.</p>
+        <div class="cta-row">
+          <a href="servicos.html" class="btn btn-primary">Ver serviços</a>
+          <a href="#curso-video" class="btn btn-ghost">Assistir vídeo de apresentação</a>
+        </div>
+      </div>
+      <!-- 2. ILUSTRAÇÃO COM PERSPECTIVA E EFEITO CSS 3D -->
+      <div class="hero-illustration">
+        <svg class="inline-img" viewBox="0 0 520 360" xmlns="http://www.w3.org/2000/svg"><title>Ilustração de uma janela de navegador mostrando código HTML a transformar-se num menu de navegação</title>
+          <rect x="10" y="10" width="500" height="340" rx="16" fill="#16263D" stroke="#28405F" stroke-width="2"/>
+          <rect x="10" y="10" width="500" height="42" rx="16" fill="#1E304A"/>
+          <circle cx="34" cy="31" r="6" fill="#FF6B5B"/>
+          <circle cx="54" cy="31" r="6" fill="#F5A623"/>
+          <circle cx="74" cy="31" r="6" fill="#6FCF97"/>
+          <rect x="110" y="22" width="280" height="18" rx="9" fill="#0F1B2D"/>
+          <text x="122" y="35" font-family="monospace" font-size="11" fill="#92A5C4">codemoz.co.mz</text>
+
+          <!-- code lines left -->
+          <g font-family="monospace" font-size="13" fill="#92A5C4">
+            <text x="30" y="80" fill="#FF6B5B">&lt;nav&gt;</text>
+            <text x="46" y="100" fill="#F5A623">&lt;ul&gt;</text>
+            <text x="62" y="120" fill="#6FCF97">&lt;li&gt;Início&lt;/li&gt;</text>
+            <text x="62" y="138" fill="#6FCF97">&lt;li&gt;Sobre&lt;/li&gt;</text>
+            <text x="62" y="156" fill="#6FCF97">&lt;li&gt;Serviços&lt;/li&gt;</text>
+            <text x="46" y="176" fill="#F5A623">&lt;/ul&gt;</text>
+            <text x="30" y="196" fill="#FF6B5B">&lt;/nav&gt;</text>
+          </g>
+
+          <!-- arrow -->
+          <path d="M250 190 L300 190" stroke="#E8EDF4" stroke-width="3" marker-end="url(#arrow)"/>
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L6,3 z" fill="#E8EDF4"/>
+            </marker>
+          </defs>
+
+          <!-- rendered nav on right -->
+          <rect x="320" y="70" width="160" height="34" rx="6" fill="#0F1B2D" stroke="#F5A623" stroke-width="1.5"/>
+          <text x="332" y="92" font-family="Poppins, sans-serif" font-size="12" fill="#F5A623">Início</text>
+          <text x="378" y="92" font-family="Poppins, sans-serif" font-size="12" fill="#E8EDF4">Sobre</text>
+          <text x="422" y="92" font-family="Poppins, sans-serif" font-size="12" fill="#E8EDF4">Serviços</text>
+
+          <rect x="320" y="120" width="160" height="70" rx="8" fill="#0F1B2D"/>
+          <rect x="332" y="132" width="90" height="10" rx="5" fill="#FF6B5B"/>
+          <rect x="332" y="150" width="130" height="6" rx="3" fill="#28405F"/>
+          <rect x="332" y="162" width="110" height="6" rx="3" fill="#28405F"/>
+          <rect x="332" y="174" width="70" height="10" rx="5" fill="#6FCF97"/>
+
+          <text x="30" y="240" font-family="monospace" font-size="13" fill="#92A5C4">/* transforma-se */</text>
+          <rect x="30" y="256" width="450" height="60" rx="8" fill="#0F1B2D" stroke="#28405F"/>
+          <text x="46" y="280" font-family="Poppins, sans-serif" font-size="14" fill="#E8EDF4">De código a experiência real —</text>
+          <text x="46" y="300" font-family="Poppins, sans-serif" font-size="14" fill="#F5A623">é isso que ensinamos na CodeMoz.</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DO VÍDEO LOCAL -->
+  <section id="curso-video">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">&lt;vídeo/&gt;</span>
+        <h2>Uma aula de amostra</h2>
+        <p>Antes de te inscreveres, assiste a um excerto de uma das nossas aulas introdutórias sobre estrutura HTML.</p>
+      </div>
+      <div class="media-frame">
+        <video controls preload="metadata">
+          <source src="videoplayback.mp4" type="video/mp4">
+          O seu navegador não suporta a reprodução deste vídeo.
+        </video>
+      </div>
+      <p class="small mt-0" style="margin-top:10px">Vídeo de demonstração carregado localmente.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="container grid-2">
+      <div>
+        <span class="tag">&lt;porquê/&gt;</span>
+        <h2>Porque escolher a CodeMoz</h2>
+        <ul class="check">
+          <li>Turmas pequenas, com acompanhamento próximo de cada formando.</li>
+          <li>Projectos reais para o portefólio, não apenas exercícios soltos.</li>
+          <li>Aulas em português, com exemplos e contextos moçambicanos.</li>
+          <li>Certificado reconhecido no final de cada módulo.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="tag">&lt;processo/&gt;</span>
+        <h2>Como funciona a inscrição</h2>
+        <ol class="steps">
+          <li>Preenche o formulário na página de <a href="contacto.html">Contacto</a>.</li>
+          <li>Recebe uma chamada da nossa equipa para perceber o teu nível actual.</li>
+          <li>Escolhe o módulo: Fundamentos de HTML/CSS, Bases de Dados ou Java.</li>
+          <li>Começa as aulas e constrói o teu primeiro site na primeira semana.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head text-center" style="margin-inline:auto">
+        <span class="tag">&lt;módulos/&gt;</span>
+        <h2>O que vais aprender</h2>
+        <p>Um percurso estruturado do design de interfaces à lógica de programação.</p>
+      </div>
+      
+      <div class="grid-3">
+        <!-- MÓDULO 1 COM CONTAINER QUERY, :HAS() E <DIALOG> -->
+        <div class="card-container">
+          <div class="card">
+            <span class="num">01</span>
+            <h3>Web Design</h3>
+            <p>HTML semântico, CSS responsivo, menus de navegação e boas práticas de acessibilidade.</p>
+            <div class="card-action">
+              <label class="module-select">
+                <input type="checkbox"> Marcar interesse
+              </label>
+              <!-- Dispara o modal sem JS utilizando os novos atributos command -->
+              <button class="btn btn-ghost" style="padding: 6px 12px; font-size: 0.8rem;" commandfor="syllabi-dialog" command="show-modal">
+                Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÓDULO 2 -->
+        <div class="card-container">
+          <div class="card">
+            <span class="num">02</span>
+            <h3>Bases de Dados</h3>
+            <p>Modelação, normalização (1FN, 2FN, 3FN) e manipulação de dados com SQL.</p>
+            <div class="card-action">
+              <label class="module-select">
+                <input type="checkbox"> Marcar interesse
+              </label>
+              <button class="btn btn-ghost" style="padding: 6px 12px; font-size: 0.8rem;" commandfor="syllabi-dialog" command="show-modal">
+                Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÓDULO 3 -->
+        <div class="card-container">
+          <div class="card">
+            <span class="num">03</span>
+            <h3>Programação Java</h3>
+            <p>Orientação a objectos aplicada a sistemas de gestão reais.</p>
+            <div class="card-action">
+              <label class="module-select">
+                <input type="checkbox"> Marcar interesse
+              </label>
+              <button class="btn btn-ghost" style="padding: 6px 12px; font-size: 0.8rem;" commandfor="syllabi-dialog" command="show-modal">
+                Detalhes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 3. ELEMENTO <DIALOG> NATIVO -->
+<dialog id="syllabi-dialog">
+  <div class="dialog-body">
+    <h3>&lt;programa-do-modulo/&gt;</h3>
+    <p>Aprende na prática os conceitos mais recentes com apoio de mentores em Maputo.</p>
+    <ul class="check">
+      <li>Carga horária: 40 horas presenciais/híbridas</li>
+      <li>Projetos individuais e em grupo</li>
+      <li>Acesso ao terminal e servidor de testes da CodeMoz</li>
+    </ul>
+    <form method="dialog" style="margin-top: 10px; text-align: right;">
+      <button class="btn btn-primary">Entendido</button>
+    </form>
+  </div>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>CodeMoz</strong><br>
+      <span class="small">Maputo, Moçambique</span>
+    </div>
+    <nav aria-label="Rodapé">
+      <ul class="socials">
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML" target="_blank" rel="noopener">MDN HTML ↗</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

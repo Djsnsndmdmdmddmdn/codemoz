@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-mz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — CodeMoz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CodeMoz — folha de estilos principal
+   Paleta: azul-noite profundo + marigold + coral
+   ========================================================= */
+
+:root {
+  --ink: #0F1B2D;
+  --panel: #16263D;
+  --panel-2: #1E304A;
+  --line: #28405F;
+  --mist: #E8EDF4;
+  --muted: #92A5C4;
+  --sun: #F5A623;
+  --coral: #FF6B5B;
+  --leaf: #6FCF97;
+
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius: 10px;
+  --max-width: 1140px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--mist);
+  font-family: var(--font-body);
+  line-height: 1.65;
+}
+
+img, svg.inline-img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  margin: 0 0 .5em;
+}
+
+a { color: var(--sun); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* -------- eyebrow "code tag" — elemento de assinatura -------- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--coral);
+  background: rgba(255,107,91,.08);
+  border: 1px solid rgba(255,107,91,.35);
+  padding: .2em .7em;
+  border-radius: 6px;
+  margin-bottom: .9em;
+  letter-spacing: .02em;
+}
+
+/* ================= HEADER / NAV ================= */
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(15,27,45,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-bar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--mist);
+}
+.brand img, .brand svg.inline-img { width: 34px; height: 34px; }
+.brand span.dim { color: var(--muted); font-weight: 400; }
+
+/* checkbox hack para o menu responsivo */
+#menu-toggle { display: none; }
+
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+}
+.menu-icon span {
+  width: 24px;
+  height: 2px;
+  background: var(--mist);
+  border-radius: 2px;
+}
+
+nav ul.nav-links {
+  display: flex;
+  gap: 6px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul.nav-links li a {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .88rem;
+  color: var(--muted);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: color .15s ease, background .15s ease;
+}
+nav ul.nav-links li a:hover,
+nav ul.nav-links li a.active {
+  color: var(--sun);
+  background: var(--panel-2);
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .menu-icon { display: flex; }
+  nav ul.nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 24px 18px;
+    display: none;
+  }
+  nav ul.nav-links li a { display: block; padding: 12px 8px; }
+  #menu-toggle:checked ~ nav ul.nav-links { display: flex; }
+}
+
+/* ================= HERO ================= */
+.hero {
+  padding: 70px 0 50px;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 2.9rem);
+}
+.hero h1 .accent { color: var(--sun); }
+.hero p.lead {
+  color: var(--muted);
+  font-size: 1.08rem;
+  max-width: 46ch;
+}
+@media (max-width: 860px) {
+  .hero .container { grid-template-columns: 1fr; }
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-primary { background: var(--sun); color: var(--ink); }
+.btn-primary:hover { background: #ffb540; text-decoration: none; }
+
+/* ================= SECTIONS ================= */
+section { padding: 60px 0; }
+section.alt { background: var(--panel); }
+.section-head { max-width: 60ch; margin-bottom: 36px; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (max-width: 860px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+ul.check { list-style: none; padding-left: 0; color: var(--muted); }
+ul.check li {
+  position: relative;
+  padding-left: 1.7em;
+  margin-bottom: .5em;
+}
+ul.check li::before {
+  content: "▹";
+  color: var(--leaf);
+  position: absolute;
+  left: 0;
+}
+
+/* tabela de serviços */
+table.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+table.price-table th, table.price-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+table.price-table th {
+  background: var(--ink);
+  font-family: var(--font-display);
+  color: var(--sun);
+  font-size: .9rem;
+}
+table.price-table tr:last-child td { border-bottom: none; }
+table.price-table td.price { font-family: var(--font-mono); color: var(--leaf); }
+
+/* media wrappers */
+.media-frame {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+}
+.media-frame iframe { width: 100%; display: block; }
+
+/* forms */
+form.contact-form { display: grid; gap: 16px; }
+form.contact-form label { font-size: .9rem; color: var(--muted); display: block; margin-bottom: 6px; }
+form.contact-form input, form.contact-form textarea, form.contact-form select {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--mist);
+  font-family: var(--font-body);
+  font-size: .95rem;
+}
+form.contact-form input:focus, form.contact-form textarea:focus, form.contact-form select:focus { border-color: var(--sun); outline: none; }
+
+/* footer */
+footer.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 40px 0 26px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+footer.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+footer.site-footer a { color: var(--muted); }
+footer.site-footer a:hover { color: var(--sun); }
+
+.socials { display: flex; gap: 14px; list-style: none; padding: 0; margin: 0; }
+.small { font-size: .85rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-bar">
+    <a class="brand" href="index.html">
+      <svg class="inline-img" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><title>Logótipo CodeMoz</title>
+        <rect width="64" height="64" rx="14" fill="#16263D"/>
+        <path d="M24 20 L12 32 L24 44" stroke="#F5A623" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40 20 L52 32 L40 44" stroke="#FF6B5B" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="35" y1="16" x2="29" y2="48" stroke="#E8EDF4" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      CodeMoz <span class="dim">.mz</span>
+    </a>
+    <input type="checkbox" id="menu-toggle">
+    <label class="menu-icon" for="menu-toggle" aria-label="Abrir menu"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">&lt;início&gt;</a></li>
+        <li><a href="sobre.html">&lt;sobre&gt;</a></li>
+        <li><a href="servicos.html">&lt;serviços&gt;</a></li>
+        <li><a href="portfolio.html">&lt;portfólio&gt;</a></li>
+        <li><a href="contacto.html" class="active">&lt;contacto&gt;</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="padding-bottom:20px">
+    <div class="container" style="grid-template-columns:1fr; max-width:70ch">
+      <span class="tag">&lt;contacto/&gt;</span>
+      <h1>Fala connosco.</h1>
+      <p class="lead">Tens dúvidas sobre um módulo, queres encomendar um site, ou só queres visitar-nos? Escolhe o canal que preferires.</p>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="container grid-2">
+
+      <div>
+        <span class="tag">&lt;formulário/&gt;</span>
+        <h2>Envia-nos uma mensagem</h2>
+        
+        <!-- Formulário configurado com FormSubmit -->
+        <form class="contact-form" action="https://formsubmit.co/allenhaivenadamoadamo@gmail.com" method="POST">
+          <!-- Desativa o teste de Captcha do FormSubmit para simplificar -->
+          <input type="hidden" name="_captcha" value="false">
+          
+          <div>
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="Nome" placeholder="O teu nome" required>
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="Email" placeholder="tu@exemplo.co.mz" required>
+          </div>
+          <div>
+            <label for="assunto">Assunto</label>
+            <select id="assunto" name="Assunto">
+              <option value="Inscrição num módulo">Inscrição num módulo</option>
+              <option value="Encomenda de um site">Encomenda de um site</option>
+              <option value="Mentoria individual">Mentoria individual</option>
+              <option value="Outro assunto" selected>Outro assunto</option>
+            </select>
+          </div>
+          <div>
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" name="Mensagem" rows="4" placeholder="Escreve a tua mensagem aqui..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="justify-self:start">Enviar mensagem</button>
+        </form>
+      </div>
+
+      <div>
+        <span class="tag">&lt;canais/&gt;</span>
+        <h2>Outras formas de contacto</h2>
+        <ul class="check">
+          <li>Telefone / WhatsApp: <a href="tel:+258840000000">+258 84 000 0000</a></li>
+          <li>E-mail: <a href="mailto:geral@codemoz.co.mz">geral@codemoz.co.mz</a></li>
+          <li>Instagram: <a href="https://instagram.com" target="_blank" rel="noopener">@codemoz.mz</a></li>
+          <li>Facebook: <a href="https://facebook.com" target="_blank" rel="noopener">CodeMoz Academia</a></li>
+          <li>Morada: Avenida das Escolas, Maputo, Moçambique</li>
+        </ul>
+
+        <h3 style="margin-top:28px">Horário de atendimento</h3>
+        <table class="price-table">
+          <thead>
+            <tr><th>Dia</th><th>Horário</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Segunda a Sexta</td><td class="price">08:00 – 17:00</td></tr>
+            <tr><td>Sábado</td><td class="price">08:00 – 12:00</td></tr>
+            <tr><td>Domingo</td><td class="price">Encerrado</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">&lt;localização/&gt;</span>
+        <h2>Onde estamos</h2>
+      </div>
+      <div class="media-frame">
+        <iframe
+          src="https://www.google.com/maps?q=Maputo,Mo%C3%A7ambique&output=embed"
+          width="100%" height="320" style="border:0" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa da localização da CodeMoz em Maputo">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <strong>CodeMoz</strong><br>
+      <span class="small">Maputo, Moçambique</span>
+    </div>
+    <nav aria-label="Rodapé">
+      <ul class="socials">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="portfolio.html">Portfólio</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
